@@ -6,18 +6,53 @@ app = Flask(__name__)
 
 # very simple personality mapping (toy model)
 PERSONALITY_KEYWORDS = {
-    "creative": ["creative", "imaginative", "inventive"],
-    "analytical": ["logical", "analytical", "data", "think"],
-    "social": ["friendly", "social", "outgoing", "people"],
-    "reserved": ["quiet", "introvert", "reserved", "shy"],
-    "driven": ["ambitious", "driven", "goal", "focused"],
+    "creative": [
+        "creative", "imaginative", "inventive",
+        "innovative", "artistic", "original", "visionary"
+    ],
+
+    "analytical": [
+        "logical", "analytical", "data", "think",
+        "reason", "problem", "calculate", "analysis"
+    ],
+
+    "social": [
+        "friendly", "social", "outgoing", "people",
+        "team", "talkative", "communication", "network"
+    ],
+
+    "reserved": [
+        "quiet", "introvert", "reserved", "shy",
+        "calm", "private", "silent", "withdrawn"
+    ],
+
+    "driven": [
+        "ambitious", "driven", "goal", "focused",
+        "motivated", "determined", "disciplined", "hardworking"
+    ],
 }
 
 SENTIMENT_DICT = {
+    # very positive
     "excellent": 3, "amazing": 3, "fantastic": 3,
-    "great": 2, "good": 1, "okay": 0, "neutral": 0,
-    "bad": -1, "terrible": -3, "sad": -2, "angry": -3
+    "awesome": 3, "wonderful": 3, "brilliant": 3,
+
+    # positive
+    "great": 2, "good": 1, "happy": 2, "confident": 2,
+    "motivated": 2, "optimistic": 2, "satisfied": 1,
+
+    # neutral
+    "okay": 0, "neutral": 0, "normal": 0, "average": 0,
+
+    # negative
+    "bad": -1, "sad": -2, "tired": -1, "confused": -1,
+    "stressed": -2, "worried": -2,
+
+    # very negative
+    "terrible": -3, "angry": -3, "frustrated": -3,
+    "depressed": -3, "hopeless": -3
 }
+
 
 def extract_personality(text: str):
     text = text.lower()
