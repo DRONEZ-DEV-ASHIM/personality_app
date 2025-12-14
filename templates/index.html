@@ -1,88 +1,136 @@
 <!doctype html>
-<html>
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <title>Personality Analyzer</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
 </head>
+
 <body>
 
 <style>
+  * { box-sizing: border-box; }
+
   body {
-    font-family: Arial, sans-serif;
-    max-width: 760px;
-    margin: 40px auto;
-    background: #0f172a;
-    color: #e2e8f0;
+    font-family: "Inter", Arial, sans-serif;
+    background: radial-gradient(circle at top, #1e293b, #020617);
+    color: #e5e7eb;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
   }
-  h1 { margin-bottom: 10px; }
-  textarea {
+
+  .card {
     width: 100%;
-    height: 160px;
-    padding: 12px;
-    border-radius: 8px;
-    background: #1e293b;
-    color: white;
+    max-width: 780px;
+    background: rgba(15, 23, 42, 0.85);
     border: 1px solid #334155;
+    border-radius: 18px;
+    padding: 30px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+  }
+
+  h1 {
+    font-size: 28px;
+    margin-bottom: 6px;
+    text-align: center;
+  }
+
+  .subtitle {
+    text-align: center;
+    color: #94a3b8;
+    margin-bottom: 25px;
+    font-size: 14px;
+  }
+
+  label {
+    font-size: 13px;
+    color: #cbd5f5;
+    margin-bottom: 6px;
+    display: block;
+  }
+
+  input, select, textarea {
+    width: 100%;
+    padding: 12px 14px;
+    border-radius: 10px;
+    background: #020617;
+    border: 1px solid #334155;
+    color: #e5e7eb;
+    font-size: 14px;
+    margin-bottom: 18px;
+    transition: 0.2s ease;
+  }
+
+  input:focus, select:focus, textarea:focus {
     outline: none;
+    border-color: #38bdf8;
+    box-shadow: 0 0 0 2px rgba(56,189,248,0.2);
   }
-  textarea:focus {
-    border-color: #3b82f6;
+
+  textarea {
+    min-height: 140px;
+    resize: vertical;
   }
+
   .btn {
-    background: #3b82f6;
+    width: 100%;
+    background: linear-gradient(135deg, #38bdf8, #2563eb);
     border: none;
-    padding: 10px 14px;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 600;
     color: white;
-    border-radius: 6px;
+    border-radius: 12px;
     cursor: pointer;
-    margin-top: 12px;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
   }
-  .loader {
-    display:none;
-    width: 18px;height: 18px;border:3px solid rgba(255,255,255,0.2);
-    border-top-color:white;border-radius:50%;
-    animation:spin 0.8s linear infinite;margin-left:10px;
+
+  .btn:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 10px 30px rgba(37,99,235,0.4);
   }
-  @keyframes spin { to { transform: rotate(360deg);} }
+
+  .footer {
+    text-align: center;
+    font-size: 12px;
+    color: #64748b;
+    margin-top: 20px;
+  }
 </style>
 
-<h1>Personality & Sentiment Analyzer</h1>
+<div class="card">
+  <h1>Personality & Sentiment Analyzer</h1>
+  <div class="subtitle">
+    Analyze personality traits and emotions from text using NLP
+  </div>
 
-<form id="analyzeForm" action="/analyze" method="POST">
-  <label>Enter your self-description / thoughts:</label><br>
-  <textarea name="text" placeholder="Type something..."></textarea><br>
-  <button class="btn" type="submit">Analyze</button>
-  <span class="loader" id="loader"></span>
-</form>
+  <form action="/analyze" method="POST">
 
+    <label>Your Name</label>
+    <input type="text" name="name" placeholder="Enter your name">
 
-<script>
-  const form = document.getElementById("analyzeForm");
-  const loader = document.getElementById("loader");
+    <label>Gender</label>
+    <select name="gender">
+      <option value="">Select gender</option>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Other</option>
+      <option>Prefer not to say</option>
+    </select>
 
-  form.addEventListener("submit", async function(e){
-    e.preventDefault();
-    const fd = new FormData(form);
-    const text = fd.get("text").trim();
+    <label>Your Thoughts / Self-Description</label>
+    <textarea name="text" placeholder="Example: I am ambitious, motivated, and confident about my future..."></textarea>
 
-    if (!text){
-      alert("Enter some text first.");
-      return;
-    }
+    <button class="btn" type="submit">Analyze Personality</button>
+  </form>
 
-    loader.style.display = "inline-block";
-
-    const res = await fetch("/analyze", {
-      method:"POST",
-      body: fd
-    });
-
-    const html = await res.text();
-    document.open();
-    document.write(html);
-    document.close();
-  });
-</script>
+  <div class="footer">
+    Built by ASHIM . SOUMAYA . ADITYA . ARKA . SHRISHA . UDAY<br>
+    Built with Python · Flask · NLP · AWS EC2
+  </div>
+</div>
 
 </body>
 </html>
